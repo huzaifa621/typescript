@@ -15,7 +15,7 @@ const merge = (leftArr: ResultData[], rightArr: ResultData[]): ResultData[] => {
    let i: number = 0;
    let j: number = 0;
    while (i < leftArr.length && j < rightArr.length) {
-      if (leftArr[i].avg > rightArr[j].avg) {
+      if (leftArr[i].avg >= rightArr[j].avg) {
          arr.push(leftArr[i]);
          i++;
       } else {
@@ -35,8 +35,10 @@ const mergeSort = (arr: ResultData[]): ResultData[] => {
       return arr;
    }
    const mid: number = Math.floor(arr.length / 2);
-   const leftArr: ResultData[] = arr.slice(0, mid);
-   const rightArr: ResultData[] = arr.slice(mid, arr.length);
+   let leftArr: ResultData[] = arr.slice(0, mid);
+   let rightArr: ResultData[] = arr.slice(mid, arr.length);
+   leftArr = mergeSort(leftArr);
+   rightArr = mergeSort(rightArr)
    return merge(leftArr, rightArr);
 };
 
@@ -55,5 +57,4 @@ for (let student of data) {
    result.push(obj);
 }
 
-console.log(result);
 console.log(mergeSort(result));
